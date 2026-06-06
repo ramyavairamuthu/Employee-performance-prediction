@@ -1,0 +1,98 @@
+{% extends "base1.html" %}
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+    <div class="card">
+        <h3>Total Employees</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>High Performers</h3>
+        <p>{{ high }}</p>
+    </div>
+
+    <div class="card red">
+        <h3>Low Performers</h3>
+        <p>{{ low }}</p>
+    </div>
+
+    <div class="card orange">
+        <h3>Pending Predictions</h3>
+        <p>{{ pending }}</p>
+    </div>
+</div>
+
+
+<!-- Charts Section -->
+<div class="chart-container">
+
+    <div class="chart-box">
+        <h3>Performance Distribution - Bar Chart</h3>
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <h3>Performance Distribution - Pie Chart</h3>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+</div>
+
+
+<div class="card" style="margin-top:30px;">
+    <h3>Quick Actions</h3>
+    <a class="btn" href="/add">➕ Add Employee</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const high = Number("{{ high }}") || 0;
+const low = Number("{{ low }}") || 0;
+const pending = Number("{{ pending }}") || 0;
+
+/* BAR CHART */
+const barCtx = document.getElementById('barChart');
+if (barCtx) {
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['High', 'Low', 'Pending'],
+            datasets: [{
+                label: 'Employees',
+                data: [high, low, pending],
+                backgroundColor: ['#22c55e', '#ef4444', '#f59e0b']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+/* PIE CHART */
+const pieCtx = document.getElementById('pieChart');
+if (pieCtx) {
+    new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: ['High', 'Low', 'Pending'],
+            datasets: [{
+                data: [high, low, pending],
+                backgroundColor: ['#22c55e', '#ef4444', '#f59e0b']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+</script>
+
+{% endblock %}

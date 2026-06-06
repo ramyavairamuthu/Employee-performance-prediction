@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Performance Prediction System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <h2>📊 EPS</h2>
+    <a href="/">Dashboard</a>
+    <a href="/add">Add Employee</a>
+    <a href="/view">View Employee</a>
+    <a href="/report">View Report</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+        <h3>Employee Performance Prediction System</h3>
+        <span>Admin</span>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+<!-- JS -->
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("main").classList.toggle("shift");
+}
+</script>
+
+</body>
+</html>

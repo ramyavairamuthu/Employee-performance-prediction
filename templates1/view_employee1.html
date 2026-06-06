@@ -1,0 +1,58 @@
+{% extends "base1.html" %}
+{% block content %}
+
+<h2 class="page-title">Employees</h2>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Performance</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for r in rows %}
+      <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+
+        <td>
+          {% if r[8] == 'High' %}
+            <span class="badge high">High</span>
+          {% elif r[8] == 'Low' %}
+            <span class="badge low">Low</span>
+          {% else %}
+            <span class="badge pending">Not Predicted</span>
+          {% endif %}
+        </td>
+
+        <td class="action-btns">
+
+          {% if r[8] == 'Not Predicted' %}
+            <a href="/predict/{{ r[0] }}" class="btn-predict">
+              Predict ▶
+            </a>
+          {% else %}
+            <span style="color: green; font-weight: bold;">
+              ✔ Predicted
+            </span>
+          {% endif %}
+
+          <a href="/delete/{{ r[0] }}" 
+             class="btn-delete"
+             onclick="return confirm('Are you sure you want to delete this employee?');">
+             Delete ✖
+          </a>
+
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

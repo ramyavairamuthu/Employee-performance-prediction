@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+{% block content %}
+
+<h2>Employee Performance & Appraisal Report</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Base Salary</th>
+      <th>Performance</th>
+      <th>Appraisal (%)</th>
+      <th>Salary After Appraisal</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>₹{{ r[9] }}</td>
+
+      <td>
+        {% if r[8] == "High" %}
+          <span class="badge high">High</span>
+        {% else %}
+          <span class="badge low">Low</span>
+        {% endif %}
+      </td>
+
+      <td>{{ r[10] }}%</td>
+      <td><strong>₹{{ r[11] }}</strong></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
